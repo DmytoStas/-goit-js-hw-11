@@ -22,14 +22,11 @@ export class ImagesAPIService {
 
   async fetch() {
     const fetchResponce = await axios.get(this.#makeURL());
-    // if (!fetchResponce) {
-    //   throw new Error();
-    // }
-
     const { data } = fetchResponce;
-    // if (data.hits.length === 0) {
-    //   throw new Error();
-    // }
+
+    if (data.hits.length === 0) {
+      throw new Error();
+    }
     this.incrementPage();
     this.cardsCount += data.hits.length;
 
@@ -45,7 +42,7 @@ export class ImagesAPIService {
 
       return data;
     } catch (e) {
-      new Error();
+      throw new Error();
     }
   }
 
